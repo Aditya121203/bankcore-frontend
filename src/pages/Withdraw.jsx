@@ -127,7 +127,7 @@ export default function Withdraw() {
             </div>
 
             <div className="form-group">
-              <label>Description <span style={{ color: "var(--ink-400)", fontWeight: 500 }}>(optional)</span></label>
+              <label>Description <span style={{ color: "var(--ink-400)", fontWeight: 500 }}>*</span></label>
               <div className="input-wrap">
                 <span className="input-icon" style={{ top: 20 }}><IconDoc width={17} height={17} /></span>
                 <textarea
