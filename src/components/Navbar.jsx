@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useNotifications } from "../context/Notificationcontext";
+import { useNotifications } from "../context/NotificationContext";
 import { timeAgo } from "../utils/format";
 import {
   IconShield,
@@ -100,6 +100,7 @@ export default function Navbar() {
         position: "relative",
         transition: "width 0.18s ease",
         minHeight: "100vh",
+        overflowX: "hidden",
       }}
     >
       <div

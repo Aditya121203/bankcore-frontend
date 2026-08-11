@@ -15,7 +15,7 @@ export default function MiniStatement() {
     let cancelled = false;
     setLoading(true);
     api
-      .getMiniStatement(user?.email)
+      .getMiniStatement(user?.email, user?.accountNumber)
       .then((data) => {
         if (!cancelled) setTransactions(data);
       })

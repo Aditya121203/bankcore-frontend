@@ -1,10 +1,8 @@
 // Real API layer for BankCore, talking to the Spring Boot backend.
-// In dev, Vite proxies "/api/*" to http://localhost:8080 (see vite.config.js),
-// so relative paths work with no config needed.
-// In production (Render), the frontend and backend are separate services,
-// so VITE_API_BASE_URL must be set to the deployed backend's full URL,
-// e.g. https://bankcore-backend.onrender.com
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+// In dev, Vite proxies "/api/*" to http://localhost:8080 (see vite.config.js).
+// In production (Render), VITE_API_URL is set at build time to the deployed
+// backend's full URL, since there's no dev proxy on a static site.
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 const TOKEN_KEY = "bankcore_token";
 
@@ -44,7 +42,7 @@ async function request(path, { method = "GET", body, auth = true } = {}) {
     if (token) headers.Authorization = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE_URL}/api${path}`, {
+  const res = await fetch(`${API_BASE}${path}`, {
     method,
     headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -87,17 +85,29 @@ function toUser(profile) {
 
 // Maps the backend's TransactionResponse into the shape Transactions.jsx /
 // Dashboard.jsx expect: { id, type, description, sender, receiver, amount, date, status }
-function toTransaction(t) {
-  const isOutflow = t.transactionType === "WITHDRAW" || t.transactionType === "TRANSFER";
-  const amount = isOutflow ? -Math.abs(t.amount) : Math.abs(t.amount);
+// myAccountNumber is needed because a TRANSFER record looks identical from the
+// database's point of view regardless of which side you're on — only comparing
+// against your own account number tells us whether it was money going out or in.
+function toTransaction(t, myAccountNumber) {
+  let type;
+  let amount;
+
+  if (t.transactionType === "WITHDRAW") {
+    type = "Withdrawal";
+    amount = -Math.abs(t.amount);
+  } else if (t.transactionType === "DEPOSIT") {
+    type = "Deposit";
+    amount = Math.abs(t.amount);
+  } else {
+    // TRANSFER — direction depends on which side "you" are.
+    const youAreSender = myAccountNumber && t.senderAccount === myAccountNumber;
+    type = youAreSender ? "Transfer Out" : "Transfer In";
+    amount = youAreSender ? -Math.abs(t.amount) : Math.abs(t.amount);
+  }
+
   return {
     id: String(t.transactionId),
-    type:
-      t.transactionType === "WITHDRAW"
-        ? "Withdrawal"
-        : t.transactionType === "TRANSFER"
-        ? "Transfer Out"
-        : "Deposit",
+    type,
     description: t.description,
     sender: t.senderName || t.senderAccount || "—",
     receiver: t.receiverName || t.receiverAccount || "—",
@@ -173,14 +183,14 @@ export async function getBalance(_email) {
   return Number(data.balance);
 }
 
-export async function getTransactions(_email) {
+export async function getTransactions(_email, accountNumber) {
   const data = await request("/transactions/history?page=0&size=100");
-  return data.map(toTransaction).sort((a, b) => new Date(b.date) - new Date(a.date));
+  return data.map((t) => toTransaction(t, accountNumber)).sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-export async function getMiniStatement(_email) {
+export async function getMiniStatement(_email, accountNumber) {
   const data = await request("/transactions/mini-statement");
-  return data.map(toTransaction);
+  return data.map((t) => toTransaction(t, accountNumber));
 }
 
 export async function getNotifications() {

@@ -15,7 +15,7 @@ export function AccountProvider({ children }) {
     setLoading(true);
     const [bal, txns] = await Promise.all([
       api.getBalance(user.email),
-      api.getTransactions(user.email),
+      api.getTransactions(user.email, user.accountNumber),
     ]);
     setBalance(bal);
     setTransactions(txns);
