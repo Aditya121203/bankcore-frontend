@@ -1,6 +1,10 @@
 // Real API layer for BankCore, talking to the Spring Boot backend.
 // In dev, Vite proxies "/api/*" to http://localhost:8080 (see vite.config.js),
-// so we call relative paths here and never hardcode a host.
+// so relative paths work with no config needed.
+// In production (Render), the frontend and backend are separate services,
+// so VITE_API_BASE_URL must be set to the deployed backend's full URL,
+// e.g. https://bankcore-backend.onrender.com
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const TOKEN_KEY = "bankcore_token";
 
@@ -40,7 +44,7 @@ async function request(path, { method = "GET", body, auth = true } = {}) {
     if (token) headers.Authorization = `Bearer ${token}`;
   }
 
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE_URL}/api${path}`, {
     method,
     headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
