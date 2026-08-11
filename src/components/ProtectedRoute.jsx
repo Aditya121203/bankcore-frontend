@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { AccountProvider } from "../context/AccountContext";
-import { NotificationProvider } from "../context/Notificationcontext";
+import { NotificationProvider } from "../context/NotificationContext";
 import Navbar from "./Navbar";
 
 export default function ProtectedRoute() {
