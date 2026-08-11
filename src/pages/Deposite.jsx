@@ -27,6 +27,10 @@ export default function Deposite() {
       setError("Enter a valid deposit amount.");
       return;
     }
+    if (numeric > 50000) {
+      setError("Single deposit cannot exceed ₹50,000.");
+      return;
+    }
     setSubmitting(true);
     try {
       const { transaction } = await deposit(numeric, description);

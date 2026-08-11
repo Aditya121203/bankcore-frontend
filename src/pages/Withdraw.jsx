@@ -31,6 +31,10 @@ export default function Withdraw() {
       setError("Insufficient balance for this withdrawal.");
       return;
     }
+    if (numeric > 10000) {
+      setError("Single withdrawal cannot exceed ₹10,000.");
+      return;
+    }
     setSubmitting(true);
     try {
       const { transaction } = await withdraw(numeric, description);
