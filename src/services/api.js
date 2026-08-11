@@ -2,7 +2,9 @@
 // In dev, Vite proxies "/api/*" to http://localhost:8080 (see vite.config.js).
 // In production (Render), VITE_API_URL is set at build time to the deployed
 // backend's full URL, since there's no dev proxy on a static site.
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
+const API_BASE = import.meta.env.VITE_API_BASE_URL
+  ? `${import.meta.env.VITE_API_BASE_URL}/api`
+  : "/api";
 
 const TOKEN_KEY = "bankcore_token";
 
