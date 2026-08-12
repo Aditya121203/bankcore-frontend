@@ -139,6 +139,11 @@ export default function Profile() {
                   <input type="text" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} />
                 </div>
                 <div className="form-group">
+                  <label>Email Address</label>
+                  <input type="email" value={user?.email || ""} disabled style={{ background: "#f3f4f6", cursor: "not-allowed" }} />
+                  <p className="field-hint">This is your account's sign-in email and can't be changed here.</p>
+                </div>
+                <div className="form-group">
                   <label>Phone Number</label>
                   <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+1 (415) 000-0000" />
                 </div>
