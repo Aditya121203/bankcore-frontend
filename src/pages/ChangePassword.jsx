@@ -187,7 +187,7 @@ export default function ChangePassword() {
               <IconAlert width={17} height={17} /> Security Notice
             </div>
             <p style={{ margin: 0, fontSize: 13.5, color: "#8a6410", lineHeight: 1.5 }}>
-              BankCore will never ask for your password via email or phone. If you suspect
+              Swiss Bank will never ask for your password via email or phone. If you suspect
               unauthorized access, change your password immediately.
             </p>
           </div>
