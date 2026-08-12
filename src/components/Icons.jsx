@@ -42,6 +42,12 @@ export const IconLogout = (p) => (
 export const IconChevronLeft = (p) => (
   <svg {...base} {...p}><path d="M15 18l-6-6 6-6" /></svg>
 );
+export const IconMenu = (p) => (
+  <svg {...base} {...p}><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+);
+export const IconX = (p) => (
+  <svg {...base} {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>
+);
 export const IconRefresh = (p) => (
   <svg {...base} {...p}><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v6h-6" /></svg>
 );

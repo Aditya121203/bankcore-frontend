@@ -98,7 +98,7 @@ export default function MiniStatement() {
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
-                        maxWidth: 320,
+                        maxWidth: "clamp(90px, 40vw, 320px)",
                       }}
                     >
                       {t.description}

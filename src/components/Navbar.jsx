@@ -16,6 +16,8 @@ import {
   IconBell,
   IconLogout,
   IconChevronLeft,
+  IconMenu,
+  IconX,
 } from "./Icons";
 
 const NOTIFICATION_ICONS = {
@@ -53,6 +55,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const panelRef = useRef(null);
 
   useEffect(() => {
@@ -89,75 +92,131 @@ export default function Navbar() {
     .toUpperCase();
 
   return (
-    <aside
-      style={{
-        width: collapsed ? 84 : 280,
-        background: "var(--navy-900)",
-        color: "#cdd9ec",
-        display: "flex",
-        flexDirection: "column",
-        flexShrink: 0,
-        position: "relative",
-        transition: "width 0.18s ease",
-        minHeight: "100vh",
-        overflowX: "hidden",
-      }}
-    >
-      <div
+    <>
+      <div className="mobile-topbar">
+        <button
+          className="mobile-topbar-btn"
+          onClick={() => setMobileOpen(true)}
+          aria-label="Open menu"
+        >
+          <IconMenu width={22} height={22} />
+        </button>
+        <div className="mobile-topbar-brand">
+          <span
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: 7,
+              background: "linear-gradient(160deg, var(--gold-400), var(--gold-500))",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <IconShield width={16} height={16} stroke="#0f2647" />
+          </span>
+          BankCore
+        </div>
+        <button
+          className="mobile-topbar-btn"
+          onClick={() => {
+            setMobileOpen(true);
+            toggleNotifications();
+          }}
+          aria-label="Notifications"
+          style={{ position: "relative" }}
+        >
+          <IconBell width={20} height={20} />
+          {unreadCount > 0 && (
+            <span className="mobile-bell-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
+          )}
+        </button>
+      </div>
+
+      {mobileOpen && (
+        <div className="sidebar-backdrop" onClick={() => setMobileOpen(false)} />
+      )}
+
+      <aside
+        className={`sidebar${mobileOpen ? " mobile-open" : ""}`}
         style={{
+          width: collapsed ? 84 : 280,
+          background: "var(--navy-900)",
+          color: "#cdd9ec",
           display: "flex",
-          alignItems: "center",
-          gap: 10,
-          padding: "26px 24px",
-          color: "#fff",
+          flexDirection: "column",
+          flexShrink: 0,
+          position: "relative",
+          transition: "width 0.18s ease",
+          minHeight: "100vh",
+          overflowX: "hidden",
         }}
       >
-        <span
+        <button
+          className="sidebar-close-btn"
+          onClick={() => setMobileOpen(false)}
+          aria-label="Close menu"
+        >
+          <IconX width={18} height={18} />
+        </button>
+
+        <div
           style={{
-            width: 36,
-            height: 36,
-            borderRadius: 8,
-            background: "linear-gradient(160deg, var(--gold-400), var(--gold-500))",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            padding: "26px 24px",
+            color: "#fff",
+          }}
+        >
+          <span
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: "linear-gradient(160deg, var(--gold-400), var(--gold-500))",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <IconShield width={20} height={20} stroke="#0f2647" />
+          </span>
+          {!collapsed && <span style={{ fontSize: 19, fontWeight: 700 }}>BankCore</span>}
+        </div>
+
+        <button
+          onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className="sidebar-collapse-btn"
+          style={{
+            position: "absolute",
+            top: 46,
+            right: -14,
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: "#fff",
+            border: "1px solid var(--border)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            flexShrink: 0,
+            cursor: "pointer",
+            color: "var(--ink-700)",
+            boxShadow: "var(--shadow-card)",
+            zIndex: 2,
           }}
         >
-          <IconShield width={20} height={20} stroke="#0f2647" />
-        </span>
-        {!collapsed && <span style={{ fontSize: 19, fontWeight: 700 }}>BankCore</span>}
-      </div>
+          <IconChevronLeft
+            width={15}
+            height={15}
+            style={{ transform: collapsed ? "rotate(180deg)" : "none" }}
+          />
+        </button>
 
-      <button
-        onClick={() => setCollapsed((c) => !c)}
-        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        style={{
-          position: "absolute",
-          top: 46,
-          right: -14,
-          width: 28,
-          height: 28,
-          borderRadius: "50%",
-          background: "#fff",
-          border: "1px solid var(--border)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          color: "var(--ink-700)",
-          boxShadow: "var(--shadow-card)",
-          zIndex: 2,
-        }}
-      >
-        <IconChevronLeft
-          width={15}
-          height={15}
-          style={{ transform: collapsed ? "rotate(180deg)" : "none" }}
-        />
-      </button>
-
-      <nav style={{ flex: 1, overflowY: "auto", padding: "8px 16px" }}>
+        <nav style={{ flex: 1, overflowY: "auto", padding: "8px 16px" }}>
         {groupedNav.map((section) => (
           <div key={section.label} style={{ marginBottom: 22 }}>
             {!collapsed && (
@@ -178,6 +237,7 @@ export default function Navbar() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                onClick={() => setMobileOpen(false)}
                 style={({ isActive }) => ({
                   display: "flex",
                   alignItems: "center",
@@ -218,6 +278,7 @@ export default function Navbar() {
           )}
           <NavLink
             to="/change-password"
+            onClick={() => setMobileOpen(false)}
             style={({ isActive }) => ({
               display: "flex",
               alignItems: "center",
@@ -291,7 +352,7 @@ export default function Navbar() {
                 position: "absolute",
                 bottom: collapsed ? 0 : "calc(100% + 6px)",
                 left: collapsed ? "calc(100% + 10px)" : 0,
-                width: 340,
+                width: "min(340px, 86vw)",
                 maxHeight: 420,
                 overflowY: "auto",
                 background: "#fff",
@@ -425,6 +486,7 @@ export default function Navbar() {
           </div>
         )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }
