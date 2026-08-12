@@ -70,7 +70,7 @@ export default function Transfer() {
       <div className="page-header">
         <div>
           <h1>Transfer Funds</h1>
-          <p>Send money to another BankCore account</p>
+          <p>Send money to another Swiss Bank account</p>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ export default function Transfer() {
             </span>
             <div>
               <div style={{ fontWeight: 700, fontSize: 16 }}>New Transfer</div>
-              <div style={{ color: "var(--ink-500)", fontSize: 13.5 }}>Transfer between BankCore accounts</div>
+              <div style={{ color: "var(--ink-500)", fontSize: 13.5 }}>Transfer between Swiss Bank accounts</div>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ export default function Transfer() {
             )}
 
             <div className="form-group">
-              <label>Description <span className="required">*</span></label>
+              <label>Description <span style={{ color: "var(--ink-400)", fontWeight: 500 }}>(optional)</span></label>
               <div className="input-wrap">
                 <span className="input-icon" style={{ top: 20 }}><IconDoc width={17} height={17} /></span>
                 <textarea
