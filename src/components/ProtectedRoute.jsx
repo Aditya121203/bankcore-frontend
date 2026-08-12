@@ -19,7 +19,7 @@ export default function ProtectedRoute() {
           fontSize: 15,
         }}
       >
-        Loading BankCore…
+        Loading Swiss Bank…
       </div>
     );
   }
