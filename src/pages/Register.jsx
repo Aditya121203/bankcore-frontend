@@ -85,7 +85,7 @@ export default function Register() {
             >
               <IconShield width={18} height={18} stroke="#0f2647" />
             </span>
-            BankCore
+            Swiss Bank
           </div>
 
           <h1>
@@ -94,7 +94,7 @@ export default function Register() {
             <span className="accent">in under 2 minutes.</span>
           </h1>
           <p className="lead">
-            Join thousands of customers who trust BankCore with their everyday
+            Join thousands of customers who trust Swiss Bank with their everyday
             finances.
           </p>
 
@@ -108,7 +108,7 @@ export default function Register() {
           ))}
 
           <p style={{ position: "absolute", bottom: 32, left: 56, color: "#7c8aab", fontSize: 12.5, margin: 0 }}>
-            © 2026 BankCore Financial Services. FDIC Insured.
+            © 2026 Swiss Bank Financial Services. Deposits Protected.
           </p>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function Register() {
       <div className="auth-form-side">
         <div className="auth-form-box">
           <h1>Create your account</h1>
-          <p>Get started with BankCore — it's free and takes just minutes.</p>
+          <p>Get started with Swiss Bank — it's free and takes just minutes.</p>
 
           {error && (
             <div
@@ -155,7 +155,7 @@ export default function Register() {
               <input
                 id="email"
                 type="email"
-                placeholder="you@bankcore.com"
+                placeholder="you@swissbank.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
@@ -222,7 +222,7 @@ export default function Register() {
                 style={{ marginTop: 2 }}
               />
               <span>
-                I agree to BankCore's{" "}
+                I agree to Swiss Bank's{" "}
                 <span className="link" style={{ cursor: "pointer" }}>Terms of Service</span> and{" "}
                 <span className="link" style={{ cursor: "pointer" }}>Privacy Policy</span>
               </span>
