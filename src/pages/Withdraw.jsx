@@ -55,7 +55,7 @@ export default function Withdraw() {
       <div className="page-header">
         <div>
           <h1>Withdraw Funds</h1>
-          <p>Withdraw money from your BankCore account</p>
+          <p>Withdraw money from your Swiss Bank account</p>
         </div>
       </div>
 
@@ -127,7 +127,7 @@ export default function Withdraw() {
             </div>
 
             <div className="form-group">
-              <label>Description <span className="required">*</span></label>
+              <label>Description <span style={{ color: "var(--ink-400)", fontWeight: 500 }}>(optional)</span></label>
               <div className="input-wrap">
                 <span className="input-icon" style={{ top: 20 }}><IconDoc width={17} height={17} /></span>
                 <textarea
