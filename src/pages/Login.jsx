@@ -58,7 +58,7 @@ export default function Login() {
             >
               <IconShield width={18} height={18} stroke="#0f2647" />
             </span>
-            BankCore
+            Swiss Bank
           </div>
 
           <h1>
@@ -127,7 +127,7 @@ export default function Login() {
                 <input
                   id="email"
                   type="email"
-                  placeholder="you@bankcore.com"
+                  placeholder="you@swissbank.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
@@ -172,7 +172,7 @@ export default function Login() {
             </div>
 
             <button type="submit" className="btn btn-primary btn-block" disabled={submitting}>
-              {submitting ? "Signing in…" : "Sign In to BankCore"}
+              {submitting ? "Signing in…" : "Sign In to Swiss Bank"}
             </button>
 
             <p style={{ textAlign: "center", marginTop: 16 }}>
