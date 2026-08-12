@@ -180,7 +180,7 @@ export default function Profile() {
             <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 700 }}>
               <IconCard width={18} height={18} /> Account Information
             </div>
-            <p className="section-sub" style={{ marginBottom: 20 }}>Your BankCore account details</p>
+            <p className="section-sub" style={{ marginBottom: 20 }}>Your Swiss Bank account details</p>
 
             <InfoRow icon={IconCard} label="Account Number" value={user?.accountNumber} mono />
             <InfoRow icon={IconWallet} label="Account Type" value={user?.accountType} />
