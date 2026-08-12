@@ -51,7 +51,7 @@ export default function Deposite() {
       <div className="page-header">
         <div>
           <h1>Deposit Funds</h1>
-          <p>Add money to your BankCore account</p>
+          <p>Add money to your Swiss Bank account</p>
         </div>
       </div>
 
